@@ -3,30 +3,30 @@
 #include <string.h>
 
 typedef struct p { 
-    int topo; 
-    unsigned capacidade; 
+    int top; 
+    unsigned capacity; 
     char **str; 
-} Pilha; 
+} Stack; 
 
-void iniciarPilha(unsigned capacidade, Pilha *pilha) {
-    pilha->capacidade = capacidade; 
-    pilha->topo = -1;
-    char lista[capacidade][50];
-    pilha->str = lista;
+void iniciarStack(unsigned capacity, Stack *stack) {
+    stack->capacity = capacity; 
+    stack->top = -1;
+    char lista[capacity][50];
+    stack->str = lista;
 }
 
-void push(Pilha *pilha, char *item) {
-    pilha->str[++pilha->topo] = item; 
+void push(Stack *stack, char *item) {
+    stack->str[++stack->top] = item; 
     printf("%s inserido na pilha\n", item);
 } 
 
-char* pop(Pilha *pilha) {
-    return pilha->str[pilha->topo--]; 
+char* pop(Stack *stack) {
+    return stack->str[stack->top--]; 
 } 
 
 int main(void) {
-  Pilha *pilha = (Pilha*)malloc(sizeof(Pilha));
-  iniciarPilha(100, pilha);
+  Stack *stack = (Stack*)malloc(sizeof(Stack));
+  iniciarStack(100, stack);
 
   printf("Nomes:\n");
 
@@ -37,13 +37,13 @@ int main(void) {
     if(strcmp(input, "fim") == 0) {
       break;
     } else {
-      push(pilha, input);
+      push(stack, input);
     }
   }
 
-  printf("\n\nNome(s) digitado(s):\n"); 
-  while(pilha->topo >= 0) {
-    printf("%s\n", pop(pilha)); 
+  printf("\n\nNome(s) inputados(s):\n"); 
+  while(stack->top >= 0) {
+    printf("%s\n", pop(stack)); 
   }
 
   return 0;
