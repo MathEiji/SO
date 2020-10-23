@@ -17,7 +17,7 @@ void iniciarPilha(unsigned capacidade, Pilha *pilha) {
 
 void push(Pilha *pilha, char *item) {
     pilha->str[++pilha->topo] = item; 
-    printf("%s foi inserido na pilha\n", item);
+    printf("%s inserido na pilha\n", item);
 } 
 
 char* pop(Pilha *pilha) {
@@ -28,7 +28,7 @@ int main(void) {
   Pilha *pilha = (Pilha*)malloc(sizeof(Pilha));
   iniciarPilha(100, pilha);
 
-  printf("Digite o(s) nome(s):\n");
+  printf("Nomes:\n");
 
   while(1) {
     char *input = malloc(50*sizeof(char));

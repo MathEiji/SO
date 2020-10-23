@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-int count(FILE *f) {
+int counter(FILE *_file) {
   int words;
   int character;
   char c;
 
   words = 0;
-  while (!feof(f)) {
-    while ((c = fgetc(f)) != EOF) {
+  while (!feof(_file)) {
+    while ((c = fgetc(_file)) != EOF) {
       if (c == ' ' || c == '\n') {
         words++;
       }
@@ -19,11 +19,11 @@ int count(FILE *f) {
   return words;
 }
 
-void *parse_file(char *filename) {
+void *file_parser(char *filename) {
   FILE *fp;
   fp = fopen(filename, "r");
 
-  int words = count(fp);
+  int words = counter(fp);
   printf("%d\n", words);
 
   fclose(fp);
@@ -31,17 +31,16 @@ void *parse_file(char *filename) {
   return NULL;
 }
 
-// this is a simple program to parse words on a provided text file using pthread.
-// to run it, simply execute ./main [file1, file2, ...]
+// Para rodar .main[file1,...]
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-      printf("Ao menos um arquivo deve ser passado como argumento!");
+      printf("Nenhum arquivo passado como argumento.");
       return 1;
     }
 
     pthread_t t[argc-1];
 
-    for (int i=1; i < argc; i++) { pthread_create(&t[i-1], NULL, (void *)parse_file, argv[i]); }
+    for (int i=1; i < argc; i++) { pthread_create(&t[i-1], NULL, (void *)file_parser, argv[i]); }
     for (int i=1; i < argc; i++) { pthread_join(t[i-1], NULL); }
 
     return 0;
